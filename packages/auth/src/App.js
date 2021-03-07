@@ -5,25 +5,29 @@ import {
   createGenerateClassName,
 } from "@material-ui/core/styles";
 
-import Landing from "./components/Landing";
-import Pricing from "./components/Pricing";
+import Signin from "./components/Signin";
+import Signup from "./components/Signup";
 
 /** prevent style collisions for randomly generated js to css class names in production
  * @material-ui issue
  */
 const generateClassName = createGenerateClassName({
-  productionPrefix: "ma",
+  productionPrefix: "au",
 });
 
-export default ({ history }) => {
+export default ({ history, onSignIn }) => {
   return (
     <div>
       <StylesProvider generateClassName={generateClassName}>
         {/* Memory history */}
         <Router history={history}>
           <Switch>
-            <Route exact path="/pricing" component={Pricing} />
-            <Route exact path="/" component={Landing} />
+            <Route path="/auth/signin">
+              <Signin onSignIn={onSignIn} />
+            </Route>
+            <Route path="/auth/signup">
+              <Signup onSignIn={onSignIn} />
+            </Route>
           </Switch>
         </Router>
       </StylesProvider>
